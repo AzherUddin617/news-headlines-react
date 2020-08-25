@@ -1,0 +1,33 @@
+@import '../../global/variables.scss';
+
+.Categories {
+  padding: 1rem 1.5rem;
+  background-color: $colorWhite;
+  border-radius: 0.6rem;
+  height: 100%;
+
+  li {
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+  }
+
+  .List {
+
+    .Item {
+      padding: 0.5rem 0;
+
+      .Link {
+        color: $colorBlack;;
+        font-size: 1.1rem;
+        transition: color 0.4s ease;
+        cursor: pointer;
+
+        &:hover {
+          color: $colorPrimary;
+        }
+      }
+    }
+  }
+}
