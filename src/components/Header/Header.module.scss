@@ -1,0 +1,14 @@
+@import '../../global/variables.scss';
+
+.Header {
+  padding: 1rem 2rem;
+  background-color: $colorWhite;
+
+  .Logo {
+    font-family: 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $colorPrimary;
+  }
+}

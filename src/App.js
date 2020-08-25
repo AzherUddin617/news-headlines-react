@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import classes from  './App.module.scss';
 
-function App() {
+import Header from './components/Header/Header';
+
+const App = props => {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.App}>
+      <Header />
     </div>
   );
 }
 
 export default App;
+
+// var url = 'http://newsapi.org/v2/top-headlines?' +
+//           'country=us&' +
+//           'apiKey=ed80bd1114d94f07ada4a6b5a9bfb7af';
+
+//     var url2 = 'https://newsapi.org/v2/everything?' + 
+//           'q=tech&' + 
+//           'apiKey=ed80bd1114d94f07ada4a6b5a9bfb7af';
+
+//     var req = new Request(url2);
+//     fetch(req)
+//         .then(function(response) {
+//             response.json().then(data => {
+
+//               console.log(data.articles.map(a => a.content));
+//             })
+//         })
