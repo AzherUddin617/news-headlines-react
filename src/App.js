@@ -8,6 +8,9 @@ const App = props => {
   return (
     <div className={classes.App}>
       <Header />
+      <main className={classes.AppBody}>
+        <div className=""></div>
+      </main>
     </div>
   );
 }
