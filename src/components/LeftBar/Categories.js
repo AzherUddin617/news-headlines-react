@@ -6,8 +6,12 @@ const Categories = (props) => {
     <div className={classes.Categories}>
       <ul className={classes.List}>
         {props.items.map((item, i) => (
-          <li key={i} className={classes.Item}>
-            <a href="#" className={classes.Link}>{item.value}</a>
+          <li key={i} className={classes.Item} onClick={() => props.clicked(item)}>
+            <p 
+              className={`${classes.Link} ${item.value === props.activeValue ? classes.Active : ''}`}
+            >
+              {item.value}
+            </p>
           </li>
         ))}
       </ul>

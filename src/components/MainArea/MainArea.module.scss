@@ -8,4 +8,45 @@
     width: 100%;
     height: 20rem;
   }
+  .NewsContents {
+    padding: 2rem 0;
+    display: grid;
+    // grid-template-columns: repeat(3, minmax(1fr, 1rf));
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    .News {
+      border-radius: 0.6rem;
+      overflow: hidden;
+      background-color: $colorWhite;
+
+      .BG {
+        width: 100%;
+        height: 12rem;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      .Texts {
+        padding: 1rem;
+
+        .Title {
+          font-size: 1.1rem;
+          padding-bottom: 1rem;
+        }
+        .Details {
+          padding-bottom: 1rem;
+        }
+      }
+    }
+  }
 }
+
+@media screen and (max-width: 675px) {
+  .MainArea {
+    .NewsContents {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+

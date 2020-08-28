@@ -6,7 +6,7 @@ class Slider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contents: props.contents,
+      // contents: props.contents,
       textContents: {
         title: 'News',
         desc: '',
@@ -30,6 +30,15 @@ class Slider extends Component {
     this.resetTexts();
     this.sliderTimeOut();
     window.addEventListener('resize', this.windowResize);
+  }
+
+  componentWillUnmount() {
+    if (this.timeOut) {
+      clearTimeout(this.timeOut);
+    }
+    if (this.bgContainerRef && this.bgContainerRef.current)
+          this.bgContainerRef.current.removeEventListener('transitionend', this.transionEnd);
+    window.removeEventListener('resize', this.windowResize);
   }
 
   mouseEnterHandler = () => {
@@ -60,8 +69,8 @@ class Slider extends Component {
   }
 
   resetContainer = () => {
-    if (this.bgContainerRef) {
-      const width = this.sliderRef.current.getBoundingClientRect().width * this.state.contents.length;
+    if (this.sliderRef) {
+      const width = this.sliderRef.current.getBoundingClientRect().width * this.props.contents.length;
       
       this.setState({ containerWidth: width });
     }
@@ -71,22 +80,24 @@ class Slider extends Component {
     const textClasses = [classes.TextContents, classes.Show];
     const textC = {...this.state.textContents};
 
-    textC.title = this.state.contents[this.state.activeContent].texts.title;
-    textC.desc = this.state.contents[this.state.activeContent].texts.desc;
-    textC.src = this.state.contents[this.state.activeContent].src;
+    textC.title = this.props.contents[this.state.activeContent].texts.title;
+    textC.desc = this.props.contents[this.state.activeContent].texts.desc;
+    textC.src = this.props.contents[this.state.activeContent].src;
 
     this.setState({textContents: textC, textContentsClasses: textClasses});
   }
 
   containerTransition = () => {
     if (!this.sliding) {
-      const transionEnd = () => {
+      this.transionEnd = () => {
         this.sliding = false;
-        this.bgContainerRef.current.removeEventListener('transitionend', transionEnd);
+        if (this.bgContainerRef && this.bgContainerRef.current)
+          this.bgContainerRef.current.removeEventListener('transitionend', this.transionEnd);
         this.resetTexts();
         this.sliderTimeOut();
       };
-      this.bgContainerRef.current.addEventListener('transitionend', transionEnd);
+      if (this.bgContainerRef && this.bgContainerRef.current)
+        this.bgContainerRef.current.addEventListener('transitionend', this.transionEnd);
       this.sliding = true;
     }
   }
@@ -103,7 +114,7 @@ class Slider extends Component {
   }
 
   bgChangeNext = () => {
-    const length = this.state.contents.length;
+    const length = this.props.contents.length;
     let nextIndex = this.state.activeContent + 1;
     if (nextIndex >= length) nextIndex = 0;
 
@@ -115,7 +126,7 @@ class Slider extends Component {
     // this.resetContainer();
   }
   bgChangePrev = () => {
-    const length = this.state.contents.length;
+    const length = this.props.contents.length;
     let nextIndex = this.state.activeContent - 1;
     if (nextIndex < 0) nextIndex = length-1;
 
@@ -130,9 +141,11 @@ class Slider extends Component {
   render() {
     // console.log(this.state);
 
-    const bgContainerTransX = (this.state.containerWidth / this.state.contents.length) * -this.state.activeContent;
+    const bgContainerTransX = (this.state.containerWidth / this.props.contents.length) * -this.state.activeContent;
 
-    const bgs = this.state.contents.map((content, i) => (
+    let bgs = <div className={classes.BG}></div>;
+
+    bgs = this.props.contents.map((content, i) => (
       <div
         key={i}
         className={classes.BG}
